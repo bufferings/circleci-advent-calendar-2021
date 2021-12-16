@@ -1,1 +1,28 @@
+version: 2.1
+orbs: 
+  slack: circleci/slack@4.5.1
 
+jobs:
+  build:
+    docker:
+      - image: 'cimg/base:stable'
+    environment:
+      SLACK_DEFAULT_CHANNEL: 'talk'
+    steps:
+      - slack/notify:
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*This is a text notification*",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
